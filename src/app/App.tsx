@@ -11,7 +11,7 @@ import deepmerge from 'deepmerge'
 
 export const history = createBrowserHistory()
 
-ReactGA.initialize('G-TCXYFCYL83')
+ReactGA.initialize('')
 
 const App = () => {
   return (

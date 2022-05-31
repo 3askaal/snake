@@ -24,9 +24,9 @@ export const GameProvider = ({ children }: any) => {
   const [currentTime, setCurrentTime] = useState<number>(0)
 
   const onStartGame = () => {
-    setGrid(generateGrid(settings))
+    setGrid(generateGrid())
     setGameOver(null)
-    setGameActive(false)
+    setGameActive(true)
     setCurrentTime(0)
   }
 
