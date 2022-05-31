@@ -1,6 +1,6 @@
 {
-  "short_name": "Minesweeper",
-  "name": "Minesweeper",
+  "short_name": "Snake",
+  "name": "Snake",
   "icons": [
     {
       "src": "favicon.ico",
