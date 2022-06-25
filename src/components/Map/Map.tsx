@@ -1,33 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Box } from '3oilerplate'
-import { SMap, SMapBlock, SMapMine, SMapMineThread } from './Map.styled'
+import { SMap, SMapSnake } from './Map.styled'
 import { GameContext } from '../../context'
 
 export const Map = () => {
-  const { grid, gameOver, settings } = useContext(GameContext)
-
-  const getPositions = () => {
-    return grid ? Object.values(grid) : []
-  }
+  const { grid, gameOver, settings, snake } = useContext(GameContext)
 
   const blockSizeX = 100 / settings.mode.width
   const blockSizeY = 100 / settings.mode.height
 
+  useEffect(() => {
+    console.log(snake)
+  }, [snake])
+
   return (
     <SMap mode={settings.mode} gameOver={!!gameOver}>
-      { getPositions().map((position: any, index: number) => (
+      { snake.map((position: any, index: number) => (
         <Box
           s={{
             display: 'flex',
-            position: 'relative',
+            position: 'absolute',
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
             width: `${blockSizeX}%`,
             height: `${blockSizeY}%`,
+            top: `${blockSizeY * position.y}%`,
+            left: `${blockSizeY * position.x}%`,
           }}
         >
-          <SMapBlock
+          <SMapSnake
             key={`block-${index}`}
             block={position.block}
           />

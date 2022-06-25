@@ -14,5 +14,16 @@ export const generateGrid = () => {
     newGrid[`${x}/${y}`] = { x, y, block: true }
   })
 
+  // newGrid = generateSnake(newGrid)
+
   return newGrid
+}
+
+export const generateSnake = () => {
+  let x = width / 2
+  let y = (height / 2) - 2
+
+  return times(5, (i) => {
+    return { x, y: y + i }
+  })
 }

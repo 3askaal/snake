@@ -1,5 +1,6 @@
-import { s } from '3oilerplate'
+import { s, darken } from '3oilerplate'
 import chroma from 'chroma-js'
+import { readBuilderProgram } from 'typescript'
 
 export const SMap = s.div(({ theme, width, height, mode, gameOver }: any) => ({
   display: 'flex',
@@ -12,13 +13,13 @@ export const SMap = s.div(({ theme, width, height, mode, gameOver }: any) => ({
   userSelect: 'none',
 
   // Light
-  borderRightColor: chroma('#fff').darken(0.5).hex(),
-  borderTopColor: chroma('#fff').darken(0.5).hex(),
+  borderRightColor: chroma('#000').brighten(1).hex(),
+  borderTopColor: chroma('#000').brighten(1).hex(),
   // Middle
-  backgroundColor: chroma('#fff').darken(1).hex(),
+  backgroundColor: chroma('#000').brighten(0.5).hex(),
   // Dark
-  borderLeftColor: chroma('#fff').darken(1.5).hex(),
-  borderBottomColor: chroma('#fff').darken(1.5).hex(),
+  borderLeftColor: chroma('#000').brighten(1.5).hex(),
+  borderBottomColor: chroma('#000').brighten(1.5).hex(),
 
   ...(gameOver && {
     cursor: 'not-allowed',
@@ -94,10 +95,10 @@ export const SMapMineThread = s.div(({ amount }: any) => ({
   fontSize: '.9em'
 }))
 
-export const SMapMine = s.div(() => ({
+export const SMapSnake = s.div(() => ({
   position: 'absolute',
-  borderRadius: '100%',
-  width: '60%',
-  height: '60%',
-  backgroundColor: '#222',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'green',
+  border: '1px solid ' + darken('green', .5),
 }))

@@ -1,3 +1,8 @@
 export interface IGameMode {}
 
-export interface ISettings {}
+export interface ISettings {
+  mode: {
+    width: number;
+    height: number;
+  }
+}
