@@ -9,10 +9,6 @@ export const Map = () => {
   const blockSizeX = 100 / settings.mode.width
   const blockSizeY = 100 / settings.mode.height
 
-  useEffect(() => {
-    console.log(snake)
-  }, [snake])
-
   return (
     <SMap mode={settings.mode} gameOver={!!gameOver}>
       { snake.map((position: any, index: number) => (

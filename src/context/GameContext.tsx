@@ -1,6 +1,6 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useReducer, useRef, useState } from 'react'
 import { IGrid, ISettings } from '../types';
-import { generateGrid, generateSnake } from '../helpers/generate';
+import { generateSnake } from '../helpers/generate';
 import { useInterval } from '../helpers/interval';
 import { last } from 'lodash';
 
@@ -39,28 +39,37 @@ export const GameProvider = ({ children }: any) => {
   const [gameOver, setGameOver] = useState<{ won: boolean } | null>(null)
   const [currentTime, setCurrentTime] = useState<number>(0)
 
-  const [snake, setSnake] = useState<ISnake[]>([])
+  const [snake, setSnakeState] = useState<ISnake[]>([])
+  const snakeRef = useRef<ISnake[]>([])
   const [direction, setDirection] = useState('down')
-  // const [snakeRef, setSnakeRef] = useState(null)
 
   const onStartGame = () => {
-    setSnake(generateSnake())
+    const snake = generateSnake()
+    setSnake(snake)
+    snakeRef.current = snake
+
     setGameOver(null)
     setCurrentTime(0)
   }
 
-  useInterval(() => {
-    moveForward()
-  }, !gameOver ? 100 : null)
+  const setSnake = (snake: ISnake[]) => {
+    setSnakeState(snake)
+    snakeRef.current = snake
+  }
 
   const moveForward = () => {
-    const headPosition = last(snake)
+    if (!snakeRef?.current) {
+      return
+    }
+
+    const headPosition = last(snakeRef?.current || [])
+
 
     const getNextPosition: any = {
       up: ({ y, ...rest }: any) => ({ ...rest, y: y - 1 }),
       down: ({ y, ...rest }: any) => ({ ...rest, y: y + 1 }),
-      left: ({ x, ...rest }: any) => ({ ...rest, y: x - 1 }),
-      right: ({ x, ...rest }: any) => ({ ...rest, y: x + 1 }),
+      left: ({ x, ...rest }: any) => ({ ...rest, x: x - 1 }),
+      right: ({ x, ...rest }: any) => ({ ...rest, x: x + 1 }),
     }
 
     const nextPosition = getNextPosition[direction](headPosition)
@@ -69,23 +78,28 @@ export const GameProvider = ({ children }: any) => {
       setGameOver({ won: false })
     }
 
-    snake.shift()
-
-    setSnake([ ...snake, nextPosition ])
+    const newSnake = [ ...snake.slice(1), nextPosition ]
+    setSnake(newSnake)
   }
 
   const nextPositionFree = (position: any) => {
-    const hitsCorner = position.y < 0 ||
+    const hitsCorner = position.y <= 0 ||
       position.y >= settings.mode.height - 1 ||
-      position.x < 0 ||
+      position.x <= 0 ||
       position.x >= settings.mode.width - 1
 
     return !hitsCorner
   }
 
-  const changeDirection = () => {
-
+  const changeDirection = (newDirection: string) => {
+    setDirection(newDirection)
+    const newSnake = [ snake[0], ...snake ]
+    setSnake(newSnake)
   }
+
+  useInterval(() => {
+    moveForward()
+  }, !gameOver ? 100 : null)
 
   return (
     <GameContext.Provider
@@ -101,6 +115,7 @@ export const GameProvider = ({ children }: any) => {
         setGameOver,
         currentTime,
         setCurrentTime,
+        changeDirection
       }}
     >
       {children}

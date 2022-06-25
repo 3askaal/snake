@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from "react-ga4";
 import { Router, Switch, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { ThemeProvider, GlobalStyle, theme } from '3oilerplate'
@@ -10,7 +11,7 @@ import deepmerge from 'deepmerge'
 
 export const history = createBrowserHistory()
 
-// ReactGA.initialize('')
+ReactGA.initialize('G-T1JLLHR5H1')
 
 const App = () => {
   return (
