@@ -44,6 +44,7 @@ export const GameProvider = ({ children }: any) => {
 
   const [food, setFood] = useState<IPosition>({})
   const [direction, setDirection] = useState('down')
+  const directionRef = useRef('down')
 
   const onStartGame = () => {
     const snake = generateSnake(settings.mode)
@@ -75,20 +76,21 @@ export const GameProvider = ({ children }: any) => {
       right: ({ x, ...rest }: any) => ({ ...rest, x: x + 1 }),
     }
 
-    const nextPosition = getNextPosition[direction](headPosition)
+    const nextPosition = getNextPosition[directionRef.current](headPosition)
     const isCorner = nextPositionCorner(nextPosition)
     const isFood = nextPositionFood(nextPosition)
     const isTail = nextPositionTail(nextPosition)
 
     if (isCorner || isTail) {
       setGameOver({ won: false })
+      console.log(headPosition)
     }
 
     if (isFood) {
       spawnFood()
     }
 
-    if (!isTail) {
+    if (!isCorner && !isTail) {
       const newSnake = [ ...snake.slice(isFood ? 0 : 1), nextPosition ]
       setSnake(newSnake)
     }
@@ -105,17 +107,18 @@ export const GameProvider = ({ children }: any) => {
     }
 
     setDirection(newDirection)
+    directionRef.current = newDirection
   }
 
   const spawnFood = () => {
     setFood({ x: random(0, settings.mode.width - 1) , y: random(0, settings.mode.height - 1) })
   }
 
-  const nextPositionCorner = (position: any) => {
-    const hitsCorner = position.y <= 0 ||
-      position.y >= settings.mode.height - 1 ||
-      position.x <= 0 ||
-      position.x >= settings.mode.width - 1
+  const nextPositionCorner = ({ x, y }: any) => {
+    const hitsCorner = y < 0 ||
+      y >= settings.mode.height ||
+      x < 0 ||
+      x >= settings.mode.width
 
     return hitsCorner
   }
