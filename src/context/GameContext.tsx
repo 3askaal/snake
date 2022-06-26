@@ -68,7 +68,6 @@ export const GameProvider = ({ children }: any) => {
 
     const headPosition = last(snakeRef?.current || [])
 
-
     const getNextPosition: any = {
       up: ({ y, ...rest }: any) => ({ ...rest, y: y - 1 }),
       down: ({ y, ...rest }: any) => ({ ...rest, y: y + 1 }),
@@ -77,42 +76,56 @@ export const GameProvider = ({ children }: any) => {
     }
 
     const nextPosition = getNextPosition[direction](headPosition)
+    const isCorner = nextPositionCorner(nextPosition)
+    const isFood = nextPositionFood(nextPosition)
+    const isTail = nextPositionTail(nextPosition)
 
-    if (!nextPositionFree(nextPosition)) {
+    if (isCorner || isTail) {
       setGameOver({ won: false })
     }
-
-    const isFood = nextPositionFood(nextPosition)
 
     if (isFood) {
       spawnFood()
     }
 
-    const newSnake = [ ...snake.slice(isFood ? 0 : 1), nextPosition ]
-    setSnake(newSnake)
+    if (!isTail) {
+      const newSnake = [ ...snake.slice(isFood ? 0 : 1), nextPosition ]
+      setSnake(newSnake)
+    }
   }
 
-  const nextPositionFree = (position: any) => {
-    const hitsCorner = position.y <= 0 ||
-      position.y >= settings.mode.height - 1 ||
-      position.x <= 0 ||
-      position.x >= settings.mode.width - 1
+  function changeDirection (newDirection: string) {
+    const isOpposite = (direction === 'left' && newDirection === 'right') ||
+      (direction === 'right' && newDirection === 'left') ||
+      (direction === 'up' && newDirection === 'down') ||
+      (direction === 'down' && newDirection === 'up')
 
-    return !hitsCorner
-  }
+    if (isOpposite) {
+      return
+    }
 
-  const changeDirection = (newDirection: string) => {
     setDirection(newDirection)
-    // const newSnake = [ snake[0], ...snake ]
-    // setSnake(newSnake)
   }
 
   const spawnFood = () => {
     setFood({ x: random(0, settings.mode.width - 1) , y: random(0, settings.mode.height - 1) })
   }
 
+  const nextPositionCorner = (position: any) => {
+    const hitsCorner = position.y <= 0 ||
+      position.y >= settings.mode.height - 1 ||
+      position.x <= 0 ||
+      position.x >= settings.mode.width - 1
+
+    return hitsCorner
+  }
+
   const nextPositionFood = (position: any) => {
     return position.x === food.x && position.y === food.y
+  }
+
+  const nextPositionTail = (position: any) => {
+    return !!snake.find(({ x, y }) => position.x === x && position.y === y)
   }
 
   useInterval(() => {
