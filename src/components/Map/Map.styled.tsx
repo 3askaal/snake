@@ -95,10 +95,20 @@ export const SMapMineThread = s.div(({ amount }: any) => ({
   fontSize: '.9em'
 }))
 
+const snakeColor = '#00FFAB'
+
 export const SMapSnake = s.div(() => ({
   position: 'absolute',
   width: '100%',
   height: '100%',
-  backgroundColor: 'green',
-  border: '1px solid ' + darken('green', .5),
+  backgroundColor: darken(snakeColor, .25),
+  border: '1px solid ' + darken(snakeColor, 1),
+}))
+
+export const SMapFood = s.div(() => ({
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'white',
+  border: '1px solid ' + darken('white', .5),
 }))

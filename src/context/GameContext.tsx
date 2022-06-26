@@ -2,16 +2,16 @@ import React, { createContext, useReducer, useRef, useState } from 'react'
 import { IGrid, ISettings } from '../types';
 import { generateSnake } from '../helpers/generate';
 import { useInterval } from '../helpers/interval';
-import { last } from 'lodash';
+import { last, random } from 'lodash';
 
-interface ISnake {
+interface IPosition {
   x?: number;
   y?: number;
 }
 interface GameContextType {
   settings: ISettings;
   grid: IGrid | null;
-  snake: ISnake[];
+  snake: IPosition[];
   currentTime: number | null;
   [key: string]: any;
 }
@@ -19,8 +19,8 @@ interface GameContextType {
 export const GameContext = createContext<GameContextType>({
   settings: {
     mode: {
-      width: 64,
-      height: 64
+      width: 32,
+      height: 32
     }
   },
   grid: null,
@@ -31,28 +31,32 @@ export const GameContext = createContext<GameContextType>({
 export const GameProvider = ({ children }: any) => {
   const [settings, setSettings] = useState({
     mode: {
-      width: 64,
-      height: 64
+      width: 32,
+      height: 32
     }
   })
   const [grid, setGrid] = useState<IGrid | null>(null)
   const [gameOver, setGameOver] = useState<{ won: boolean } | null>(null)
   const [currentTime, setCurrentTime] = useState<number>(0)
 
-  const [snake, setSnakeState] = useState<ISnake[]>([])
-  const snakeRef = useRef<ISnake[]>([])
+  const [snake, setSnakeState] = useState<IPosition[]>([])
+  const snakeRef = useRef<IPosition[]>([])
+
+  const [food, setFood] = useState<IPosition>({})
   const [direction, setDirection] = useState('down')
 
   const onStartGame = () => {
-    const snake = generateSnake()
+    const snake = generateSnake(settings.mode)
     setSnake(snake)
     snakeRef.current = snake
+
+    spawnFood()
 
     setGameOver(null)
     setCurrentTime(0)
   }
 
-  const setSnake = (snake: ISnake[]) => {
+  const setSnake = (snake: IPosition[]) => {
     setSnakeState(snake)
     snakeRef.current = snake
   }
@@ -78,7 +82,13 @@ export const GameProvider = ({ children }: any) => {
       setGameOver({ won: false })
     }
 
-    const newSnake = [ ...snake.slice(1), nextPosition ]
+    const isFood = nextPositionFood(nextPosition)
+
+    if (isFood) {
+      spawnFood()
+    }
+
+    const newSnake = [ ...snake.slice(isFood ? 0 : 1), nextPosition ]
     setSnake(newSnake)
   }
 
@@ -93,8 +103,16 @@ export const GameProvider = ({ children }: any) => {
 
   const changeDirection = (newDirection: string) => {
     setDirection(newDirection)
-    const newSnake = [ snake[0], ...snake ]
-    setSnake(newSnake)
+    // const newSnake = [ snake[0], ...snake ]
+    // setSnake(newSnake)
+  }
+
+  const spawnFood = () => {
+    setFood({ x: random(0, settings.mode.width - 1) , y: random(0, settings.mode.height - 1) })
+  }
+
+  const nextPositionFood = (position: any) => {
+    return position.x === food.x && position.y === food.y
   }
 
   useInterval(() => {
@@ -110,12 +128,12 @@ export const GameProvider = ({ children }: any) => {
         grid,
         setGrid,
         snake,
-        setSnake,
+        food,
         gameOver,
         setGameOver,
         currentTime,
         setCurrentTime,
-        changeDirection
+        changeDirection,
       }}
     >
       {children}

@@ -19,9 +19,9 @@ export const generateGrid = () => {
   return newGrid
 }
 
-export const generateSnake = () => {
-  let x = width / 2
-  let y = (height / 2) - 2
+export const generateSnake = (mode: any) => {
+  let x = mode.width / 2
+  let y = (mode.height / 2) - 8
 
   return times(5, (i) => {
     return { x, y: y + i }
