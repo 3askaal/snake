@@ -83,7 +83,6 @@ export const GameProvider = ({ children }: any) => {
 
     if (isCorner || isTail) {
       setGameOver({ won: false })
-      console.log(headPosition)
     }
 
     if (isFood) {
