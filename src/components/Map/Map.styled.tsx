@@ -16,10 +16,10 @@ export const SMap = s.div(({ theme, width, height, mode, gameOver }: any) => ({
   borderRightColor: chroma('#000').brighten(1).hex(),
   borderTopColor: chroma('#000').brighten(1).hex(),
   // Middle
-  backgroundColor: chroma('#000').brighten(0.5).hex(),
+  backgroundColor: chroma('#000').brighten(0.2).hex(),
   // Dark
-  borderLeftColor: chroma('#000').brighten(1.5).hex(),
-  borderBottomColor: chroma('#000').brighten(1.5).hex(),
+  borderLeftColor: chroma('#000').brighten(.8).hex(),
+  borderBottomColor: chroma('#000').brighten(.8).hex(),
 
   ...(gameOver && {
     cursor: 'not-allowed',
