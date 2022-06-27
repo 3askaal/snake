@@ -1,13 +1,13 @@
 import { s, brighten } from '3oilerplate'
 
-export const SPlayerDetails = s.div(({ theme, index }: any) => ({
+export const SControls = s.div(({ theme, index }: any) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
 }))
 
-export const SPlayerDetailsMiddle = s.div(({ theme }: any) => ({
+export const SControlsMiddle = s.div(({ theme }: any) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   marginLeft: 's',
@@ -16,7 +16,7 @@ export const SPlayerDetailsMiddle = s.div(({ theme }: any) => ({
 }))
 
 
-export const SPlayerDetailsButton = s.button(({ theme, type, color, index }: any) => ({
+export const SControlsButton = s.button(({ theme, type, color, index }: any) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

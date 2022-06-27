@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { SPlayerDetails, SPlayerDetailsMiddle, SPlayerDetailsButton } from './Controls.styled'
+import { SControls, SControlsMiddle, SControlsButton } from './Controls.styled'
 import {
   ChevronUp,
   ChevronLeft,
@@ -13,8 +13,8 @@ export const Controls = () => {
   const { changeDirection } = useContext(GameContext)
 
   return (
-    <SPlayerDetails>
-      <SPlayerDetailsButton
+    <SControls>
+      <SControlsButton
         type="left"
         {...isMobile() ? {
           onTouchStart: () => changeDirection('left')
@@ -26,9 +26,9 @@ export const Controls = () => {
         }}
       >
         <ChevronLeft />
-      </SPlayerDetailsButton>
-      <SPlayerDetailsMiddle>
-        <SPlayerDetailsButton
+      </SControlsButton>
+      <SControlsMiddle>
+        <SControlsButton
           type="up"
           {...isMobile() ? {
             onTouchStart: () => changeDirection('up')
@@ -40,8 +40,8 @@ export const Controls = () => {
           }}
         >
           <ChevronUp />
-        </SPlayerDetailsButton>
-        <SPlayerDetailsButton
+        </SControlsButton>
+        <SControlsButton
           type="down"
           {...isMobile() ? {
             onTouchStart: () => changeDirection('down')
@@ -53,9 +53,9 @@ export const Controls = () => {
           }}
         >
           <ChevronDown />
-        </SPlayerDetailsButton>
-      </SPlayerDetailsMiddle>
-      <SPlayerDetailsButton
+        </SControlsButton>
+      </SControlsMiddle>
+      <SControlsButton
         type="right"
         {...isMobile() ? {
           onTouchStart: () => changeDirection('right')
@@ -67,7 +67,7 @@ export const Controls = () => {
         }}
       >
         <ChevronRight />
-      </SPlayerDetailsButton>
-    </SPlayerDetails>
+      </SControlsButton>
+    </SControls>
   )
 }

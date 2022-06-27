@@ -1,13 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { Container, Wrapper, Button, Text, Spacer, Popup } from '3oilerplate'
-import { Smile as SmileIcon, Frown as FrownIcon } from 'react-feather'
-import { Controls, Map, Timer } from '../../components'
+import { Controls, Map } from '../../components'
 import { GameContext } from '../../context'
 import { useKeyboardBindings } from '../../helpers/keyboard'
 import ReactGA4 from 'react-ga4'
 
 const PlayView = () => {
-  const { onStartGame, gameOver, settings, changeDirection } = useContext(GameContext)
+  const { onStartGame, gameOver, settings } = useContext(GameContext)
 
   useKeyboardBindings()
 
