@@ -77,9 +77,9 @@ export const GameProvider = ({ children }: any) => {
     }
 
     const nextPosition = getNextPosition[directionRef.current](headPosition)
-    const isCorner = nextPositionCorner(nextPosition)
-    const isFood = nextPositionFood(nextPosition)
-    const isTail = nextPositionTail(nextPosition)
+    const isCorner = posHitsCorner(nextPosition)
+    const isTail = posHitsSnake(nextPosition)
+    const isFood = posHitsFood(nextPosition)
 
     if (isCorner || isTail) {
       setGameOver({ won: false })
@@ -110,10 +110,23 @@ export const GameProvider = ({ children }: any) => {
   }
 
   const spawnFood = () => {
-    setFood({ x: random(0, settings.mode.width - 1) , y: random(0, settings.mode.height - 1) })
+    let newFood = null
+
+    while (!newFood) {
+      const newFoodPos = {
+        x: random(0, settings.mode.width - 1),
+        y: random(0, settings.mode.height - 1)
+      }
+
+      if (!posHitsSnake(newFoodPos)) {
+        newFood = newFoodPos
+      }
+    }
+
+    setFood(newFood)
   }
 
-  const nextPositionCorner = ({ x, y }: any) => {
+  const posHitsCorner = ({ x, y }: any) => {
     const hitsCorner = y < 0 ||
       y >= settings.mode.height ||
       x < 0 ||
@@ -122,11 +135,11 @@ export const GameProvider = ({ children }: any) => {
     return hitsCorner
   }
 
-  const nextPositionFood = (position: any) => {
-    return position.x === food.x && position.y === food.y
+  const posHitsFood = ({ x, y }: any) => {
+    return x === food.x && y === food.y
   }
 
-  const nextPositionTail = (position: any) => {
+  const posHitsSnake = (position: any) => {
     return !!snake.find(({ x, y }) => position.x === x && position.y === y)
   }
 
