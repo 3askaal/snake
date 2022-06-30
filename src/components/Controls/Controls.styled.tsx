@@ -64,25 +64,25 @@ export const SControlsButton = s.button(({ theme, type, color, index }: any) => 
   },
 
   ...(type === 'up' && {
-    transform: 'translateY(-100%)',
+    transform: 'translateY(-99%)',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   }),
 
   ...(type === 'down' && {
-    transform: 'translateY(100%)',
+    transform: 'translateY(99%)',
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
   }),
 
   ...(type === 'left' && {
-    transform: 'translateX(-100%)',
+    transform: 'translateX(-99%)',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   }),
 
   ...(type === 'right' && {
-    transform: 'translateX(100%)',
+    transform: 'translateX(99%)',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   }),
