@@ -26,6 +26,7 @@ export const SControlsMiddle = s.div(({ theme, index }: any) => ({
   height: '4rem',
   backgroundColor: brighten('black', .2),
   pointerEvents: 'none',
+  zIndex: '100100',
 
   '&:before': {
     content: "''",
@@ -43,7 +44,10 @@ export const SControlsMiddle = s.div(({ theme, index }: any) => ({
   }
 }))
 
-export const SControlsButton = s.button(({ theme, type, color, index }: any) => ({
+const shadowSize = '.125rem'
+const shadowColor = brighten('black', 1.2)
+
+export const SControlsButton = s.button(({ type }: any) => ({
   position: 'absolute',
   display: 'flex',
   alignItems: 'center',
@@ -58,31 +62,65 @@ export const SControlsButton = s.button(({ theme, type, color, index }: any) => 
   marginTop: 's',
   marginBottom: 's',
 
+  '&:before': {
+    content: "''",
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: '.2rem',
+
+    ...(type === 'up' && {
+      boxShadow: `0 -${shadowSize} 0 ${shadowSize} ${shadowColor}`,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+    }),
+
+    ...(type === 'down' && {
+      boxShadow: `0 ${shadowSize} 0 ${shadowSize} ${shadowColor}`,
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0,
+    }),
+
+    ...(type === 'left' && {
+      boxShadow: `-${shadowSize} 0 0 ${shadowSize} ${shadowColor}`,
+      borderTopRightRadius: 0,
+      borderBottomRightRadius: 0,
+    }),
+
+    ...(type === 'right' && {
+      boxShadow: `${shadowSize} 0 0 ${shadowSize} ${shadowColor}`,
+      borderTopLeftRadius: 0,
+      borderBottomLeftRadius: 0,
+    }),
+  },
+
   'svg': {
     strokeWidth: 3,
     stroke: darken('white', 1.2)
   },
 
   ...(type === 'up' && {
-    transform: 'translateY(-99%)',
+    transform: 'translateY(-99.5%)',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
   }),
 
   ...(type === 'down' && {
-    transform: 'translateY(99%)',
+    transform: 'translateY(99.5%)',
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
   }),
 
   ...(type === 'left' && {
-    transform: 'translateX(-99%)',
+    transform: 'translateX(-99.5%)',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   }),
 
   ...(type === 'right' && {
-    transform: 'translateX(99%)',
+    transform: 'translateX(99.5%)',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   }),
