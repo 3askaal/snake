@@ -38,7 +38,7 @@ const PlayView = () => {
   return (
     <Wrapper>
       <Container s={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-        <Spacer size="xl" s={{ display: 'flex', alignItems: 'center' }}>
+        <Spacer size="m" s={{ display: 'flex', alignItems: 'center' }}>
           <Map />
           <Controls />
         </Spacer>

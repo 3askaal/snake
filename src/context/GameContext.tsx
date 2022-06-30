@@ -139,8 +139,8 @@ export const GameProvider = ({ children }: any) => {
     return x === food.x && y === food.y
   }
 
-  const posHitsSnake = (position: any) => {
-    return !!snake.find(({ x, y }) => position.x === x && position.y === y)
+  const posHitsSnake = (pos: any) => {
+    return !!snake.find(({ x, y }) => pos.x === x && pos.y === y)
   }
 
   useInterval(() => {
