@@ -12,13 +12,13 @@ export const SMap = s.div(({ mode, gameOver }: any) => ({
   userSelect: 'none',
 
   // Light
-  borderRightColor: chroma('#000').brighten(1).hex(),
-  borderTopColor: chroma('#000').brighten(1).hex(),
+  borderRightColor: 'backgroundBorderLight',
+  borderTopColor: 'backgroundBorderLight',
   // Middle
   backgroundColor: chroma('#000').brighten(0.2).hex(),
   // Dark
-  borderLeftColor: chroma('#000').brighten(.8).hex(),
-  borderBottomColor: chroma('#000').brighten(.8).hex(),
+  borderLeftColor: 'backgroundBorderDark',
+  borderBottomColor: 'backgroundBorderDark',
 
   ...(gameOver && {
     [SMapSnake]: {
