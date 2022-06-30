@@ -15,7 +15,7 @@ export const SControls = s.div(({ theme, index }: any) => ({
     width: '120%',
     height: '120%',
     borderRadius: '100%',
-    backgroundColor: 'backgroundDark',
+    backgroundColor: 'backgroundLight',
     pointerEvents: 'none',
   }
 }))
