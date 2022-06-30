@@ -7,7 +7,6 @@ export const SControls = s.div(({ theme, index }: any) => ({
   alignItems: 'center',
   height: '12rem',
   width: '12rem',
-  // border: '1px solid red',
 
   '&:before': {
     content: "''",
