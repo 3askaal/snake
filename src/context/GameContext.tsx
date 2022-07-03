@@ -19,8 +19,8 @@ interface GameContextType {
 export const GameContext = createContext<GameContextType>({
   settings: {
     mode: {
-      width: 32,
-      height: 32
+      width: 12,
+      height: 12
     }
   },
   grid: null,
