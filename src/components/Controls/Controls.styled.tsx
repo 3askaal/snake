@@ -45,8 +45,8 @@ export const SControlsMiddle = s.div(({ theme, index }: any) => ({
 export const SControlsButton = s.button(({ theme, type, color, index }: any) => ({
   position: 'absolute',
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  // alignItems: 'center',
+  // justifyContent: 'center',
   width: '4rem',
   height: '4rem',
   backgroundColor: brighten('black', .2),
@@ -56,33 +56,40 @@ export const SControlsButton = s.button(({ theme, type, color, index }: any) => 
   cursor: 'pointer',
   marginTop: 's',
   marginBottom: 's',
+  padding: '.75rem',
 
   'svg': {
     strokeWidth: 3,
-    stroke: darken('white', 1.2)
+    stroke: darken('white', 1.8)
   },
 
   ...(type === 'up' && {
     transform: 'translateY(-99%)',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
+    justifyContent: 'center'
   }),
 
   ...(type === 'down' && {
     transform: 'translateY(99%)',
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
+    justifyContent: 'center',
+    alignItems: 'flex-end'
   }),
 
   ...(type === 'left' && {
     transform: 'translateX(-99%)',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
+    alignItems: 'center',
   }),
 
   ...(type === 'right' && {
     transform: 'translateX(99%)',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   }),
 }))

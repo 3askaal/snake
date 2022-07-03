@@ -8,17 +8,17 @@ export const SMap = s.div(({ mode, gameOver }: any) => ({
   width: '100%',
   maxWidth: '500px',
   aspectRatio: `${(mode.width / mode.height) || 1} / 1`,
-  border: '.25rem solid',
+  // border: '.25rem solid',
   userSelect: 'none',
 
   // Light
-  borderRightColor: 'backgroundBorderLight',
-  borderTopColor: 'backgroundBorderLight',
+  // borderRightColor: 'backgroundBorderLight',
+  // borderTopColor: 'backgroundBorderLight',
   // Middle
   backgroundColor: chroma('#000').brighten(0.2).hex(),
   // Dark
-  borderLeftColor: 'backgroundBorderDark',
-  borderBottomColor: 'backgroundBorderDark',
+  // borderLeftColor: 'backgroundBorderDark',
+  // borderBottomColor: 'backgroundBorderDark',
 
   ...(gameOver && {
     [SMapSnake]: {
