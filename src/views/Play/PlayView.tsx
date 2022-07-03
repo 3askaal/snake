@@ -36,8 +36,8 @@ const PlayView = () => {
   }, [gameOver])
 
   return (
-    <Wrapper s={{ padding: 'l' }}>
-      <Container s={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+    <Wrapper s={{ paddingBottom: 'xxl' }}>
+      <Container s={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
         <Spacer size="xl" s={{ display: 'flex', alignItems: 'center' }}>
           <Map />
           <Controls />
